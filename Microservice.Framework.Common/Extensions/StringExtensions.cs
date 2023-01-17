@@ -130,7 +130,7 @@ namespace Microservice.Framework.Common
         {
             if (value.IsNotNullOrEmpty())
             {
-                using (var myMD5 = new MD5CryptoServiceProvider())
+                using (var myMD5 = MD5.Create())
                 {
                     var data = myMD5.ComputeHash(Encoding.Default.GetBytes(value));
                     var stringBuilder = new StringBuilder();
@@ -146,7 +146,7 @@ namespace Microservice.Framework.Common
 
         public static string Encrypt(this string value, string key)
         {
-            using (var tdes = new TripleDESCryptoServiceProvider())
+            using (var tdes = TripleDES.Create())
             {
                 tdes.Key = UTF8Encoding.UTF8.GetBytes(key);
                 tdes.Mode = CipherMode.ECB;
@@ -161,7 +161,7 @@ namespace Microservice.Framework.Common
 
         public static string Decrypt(this string value, string key)
         {
-            using (var tdes = new TripleDESCryptoServiceProvider())
+            using (var tdes = TripleDES.Create())
             {
                 tdes.Key = UTF8Encoding.UTF8.GetBytes(key);
                 tdes.Mode = CipherMode.ECB;
